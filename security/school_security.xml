@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="school_equipment_rule_user" model="ir.rule">
+        <field name="name">Solo material en uso</field>
+        <field name="model_id" ref="model_school_equipment"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[('state','=','en_uso')]</field>
+    </record>
+</odoo>
