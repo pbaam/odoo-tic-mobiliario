@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <!-- ACTION -->
+    <record id="school_equipment_action" model="ir.actions.act_window">
+        <field name="name">Equipos</field>
+        <field name="res_model">school.equipment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- VISTA TREE -->
+    <record id="view_school_equipment_tree" model="ir.ui.view">
+        <field name="name">school.equipment.tree</field>
+        <field name="model">school.equipment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="serial_number"/>
+                <field name="location_id"/>
+                <field name="state"/>
+                <field name="cost" sum="Coste Total"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- VISTA FORM -->
+    <record id="view_school_equipment_form" model="ir.ui.view">
+        <field name="name">school.equipment.form</field>
+        <field name="model">school.equipment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="serial_number"/>
+                        <field name="purchase_date"/>
+                        <field name="cost"/>
+                        <field name="location_id"/>
+                        <field name="tag_ids"
+                               widget="many2many_tags"
+                               options="{'color_field': 'color'}"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- VISTA SEARCH -->
+    <record id="view_school_equipment_search" model="ir.ui.view">
+        <field name="name">school.equipment.search</field>
+        <field name="model">school.equipment</field>
+        <field name="arch" type="xml">
+            <search>
+
+                <field name="name"/>
+                <field name="location_id"/>
+
+                <!-- FILTROS -->
+                <filter name="roto"
+                        string="Material Roto"
+                        domain="[('state','=','roto')]"/>
+
+                <filter name="caro"
+                        string="Material Caro"
+                        domain="[('cost','>=',500)]"/>
+
+                <!-- AGRUPAR -->
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_location"
+                            string="Ubicación"
+                            context="{'group_by':'location_id'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+</odoo>

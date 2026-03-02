@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>ç
+    
+    <menuitem id="school_root_menu" name="Inventario del instituto"/>
+
+    <menuitem id="school_equipment_menu"
+              name="Equipos"
+              parent="school_root_menu"
+              action="school_equipment_action"/>
+</odoo>
