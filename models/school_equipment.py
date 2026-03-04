@@ -9,10 +9,10 @@ class SchoolEquipment(models.Model):
     purchase_date = fields.Date(string = 'Fecha de compra')
     cost = fields.Float(string = 'Coste')
     state = fields.Selection([
-        ('en_uso', 'En Uso'),
-        ('en_mantenimiento', 'En Mantenimiento'),
-        ('roto', 'Roto/Baja'),
-    ], default = 'en_uso', string = 'Estado')
+        ('in_use', 'En Uso'),
+        ('maintenance', 'En Mantenimiento'),
+        ('broken', 'Roto/Baja'),
+    ], default = 'in_use', string = 'Estado')
     active = fields.Boolean(string = 'Activo')
 
     location_id = fields.Many2one('school.location', string = 'Localización')

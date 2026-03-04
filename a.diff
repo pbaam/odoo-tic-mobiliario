@@ -1,0 +1,101 @@
+commit 1aabeea6b2b264a49139d6cf68e9ac0c0b9c54c5
+Author: Pablo A. Álvarez <pbaam@proton.me>
+Date:   Wed Mar 4 22:43:38 2026 +0100
+
+    Renombrar campos
+    
+    Solucionar error en school_equipment_views.xml
+
+diff --git a/__manifest__.py b/__manifest__.py
+index 8bfeb6b..524690e 100644
+--- a/__manifest__.py
++++ b/__manifest__.py
+@@ -3,7 +3,7 @@
+     'depends': ['base'],
+     'application': True,
+     'installable': True,
+-    'license': 'LGPL-3',
++    'license': 'Other OSI approved licence',
+     'author': 'Pablo Álvarez, Miguel Arnauda, Dilan Solarte',
+     'data': [
+         'security/ir.model.access.csv',
+diff --git a/models/school_equipment.py b/models/school_equipment.py
+index 30fbe08..ccafa17 100644
+--- a/models/school_equipment.py
++++ b/models/school_equipment.py
+@@ -9,10 +9,10 @@ class SchoolEquipment(models.Model):
+     purchase_date = fields.Date(string = 'Fecha de compra')
+     cost = fields.Float(string = 'Coste')
+     state = fields.Selection([
+-        ('en_uso', 'En Uso'),
+-        ('en_mantenimiento', 'En Mantenimiento'),
+-        ('roto', 'Roto/Baja'),
+-    ], default = 'en_uso', string = 'Estado')
++        ('in_use', 'En Uso'),
++        ('maintenance', 'En Mantenimiento'),
++        ('broken', 'Roto/Baja'),
++    ], default = 'in_use', string = 'Estado')
+     active = fields.Boolean(string = 'Activo')
+ 
+     location_id = fields.Many2one('school.location', string = 'Localización')
+@@ -31,4 +31,4 @@ class SchoolEquipment(models.Model):
+     def _check_cost_positive(self):
+         for record in self:
+             if record.cost < 0:
+-                raise ValidationError("El coste no puede ser negativo.")
+\ No newline at end of file
++                raise ValidationError("El coste no puede ser negativo.")
+diff --git a/security/ir.model.access.csv b/security/ir.model.access.csv
+index d261622..c03a49f 100644
+--- a/security/ir.model.access.csv
++++ b/security/ir.model.access.csv
+@@ -1,4 +1,4 @@
+ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+-odoo-tic-mobiliario.access_school_equipment,access_school_equipment,model_school_equipment,base.group_user,1,1,1,1
+-odoo-tic-mobiliario.access_school_equipment_tag,access_school_equipment_tag,model_school_equipment_tag,base.group_user,1,1,1,1
+-odoo-tic-mobiliario.access_school_location,access_school_location,model_school_location,base.group_user,1,1,1,1
+\ No newline at end of file
++school_equipment.access_equipment,access_equipment_properties,school_equipment.model_school_equipment,base.group_user,1,1,1,1
++school_equipment.access_equipment_tag,access_equipment_tag_properties,school_equipment.model_school_equipment_tag,base.group_user,1,1,1,1
++school_equipment.access_location,access_equipment_location,school_equipment.model_school_location,base.group_user,1,1,1,1
+diff --git a/security/school_security.xml b/security/school_security.xml
+index 8732788..3f15560 100644
+--- a/security/school_security.xml
++++ b/security/school_security.xml
+@@ -4,6 +4,6 @@
+         <field name="name">Solo material en uso</field>
+         <field name="model_id" ref="model_school_equipment"/>
+         <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+-        <field name="domain_force">[('state','=','en_uso')]</field>
++        <field name="domain_force">[('state','=','in_use')]</field>
+     </record>
+ </odoo>
+diff --git a/static/description/icon.png b/static/description/icon.png
+new file mode 100644
+index 0000000..449cff3
+Binary files /dev/null and b/static/description/icon.png differ
+diff --git a/views/school_equipment_views.xml b/views/school_equipment_views.xml
+index db13877..888856a 100644
+--- a/views/school_equipment_views.xml
++++ b/views/school_equipment_views.xml
+@@ -38,7 +38,7 @@
+                         <field name="purchase_date"/>
+                         <field name="cost"/>
+                         <field name="location_id"/>
+-                        <field name="tag_ids"
++                        <field name="tags_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color'}"/>
+                         <field name="active"/>
+@@ -59,9 +59,9 @@
+                 <field name="location_id"/>
+ 
+                 <!-- FILTROS -->
+-                <filter name="roto"
++                <filter name="broken"
+                         string="Material Roto"
+-                        domain="[('state','=','roto')]"/>
++                        domain="[('state','=','broken')]"/>
+ 
+                 <filter name="caro"
+                         string="Material Caro"
