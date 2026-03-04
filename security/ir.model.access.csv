@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-odoo-tic-mobiliario.access_school_equipment,access_school_equipment,model_school_equipment,base.group_user,1,1,1,1
-odoo-tic-mobiliario.access_school_equipment_tag,access_school_equipment_tag,model_school_equipment_tag,base.group_user,1,1,1,1
-odoo-tic-mobiliario.access_school_location,access_school_location,model_school_location,base.group_user,1,1,1,1
+school_equipment.access_equipment,access_equipment_properties,school_equipment.model_school_equipment,base.group_user,1,1,1,1
+school_equipment.access_equipment_tag,access_equipment_tag_properties,school_equipment.model_school_equipment_tag,base.group_user,1,1,1,1
+school_equipment.access_location,access_equipment_location,school_equipment.model_school_location,base.group_user,1,1,1,1

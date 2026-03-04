@@ -38,7 +38,7 @@
                         <field name="purchase_date"/>
                         <field name="cost"/>
                         <field name="location_id"/>
-                        <field name="tag_ids"
+                        <field name="tags_ids"
                                widget="many2many_tags"
                                options="{'color_field': 'color'}"/>
                         <field name="active"/>
@@ -59,9 +59,9 @@
                 <field name="location_id"/>
 
                 <!-- FILTROS -->
-                <filter name="roto"
+                <filter name="broken"
                         string="Material Roto"
-                        domain="[('state','=','roto')]"/>
+                        domain="[('state','=','broken')]"/>
 
                 <filter name="caro"
                         string="Material Caro"

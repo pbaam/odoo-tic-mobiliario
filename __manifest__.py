@@ -3,7 +3,7 @@
     'depends': ['base'],
     'application': True,
     'installable': True,
-    'license': 'LGPL-3',
+    'license': 'Other OSI approved licence',
     'author': 'Pablo Álvarez, Miguel Arnauda, Dilan Solarte',
     'data': [
         'security/ir.model.access.csv',
